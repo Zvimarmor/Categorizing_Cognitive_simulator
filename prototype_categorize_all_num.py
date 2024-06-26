@@ -105,6 +105,8 @@ if __name__ == '__main__':
         prototype_accuracies.append(prototype_accuracy)
         print('finished', percentage, '%')
 
+    print("final accuracy of prototype categorization: ", prototype_accuracies[-1] * 100, '%')
+
     plt.plot(range(1, 101), prototype_accuracies)
     plt.title('Accuracy of categorization of test images on numbers 0-9')
     plt.xlabel('Percentage of training data used')
