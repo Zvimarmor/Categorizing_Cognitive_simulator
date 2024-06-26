@@ -65,14 +65,14 @@ def prototype_categorized(train_images, train_labels, test_images, test_labels):
     prototype_0 = np.mean(train_images[train_labels == 0], axis=0)
     prototype_1 = np.mean(train_images[train_labels == 1], axis=0)
 
-    #show the prototypes with title of 'prototype 0' and 'prototype 1'
+    #show the prototypes 
     # plt.imshow(prototype_0, cmap='gray')
-    # plt.title('prototype 0')
+    # plt.title('prototype 0 from '+ str(len(train_images[train_labels == 0]))+ ' images')
     # plt.show()
     # plt.close()
 
     # plt.imshow(prototype_1, cmap='gray')
-    # plt.title('prototype 1')
+    # plt.title('prototype 1 from '+ str(len(train_images[train_labels == 0]))+ ' images')
     # plt.show()
     # plt.close()
 
@@ -121,19 +121,21 @@ if __name__ == '__main__':
 
     prototype_accuracies = []
     examples_accuracies = []
-    for percentage in range(1, 100):
+    for percentage in range(1, 101):
         train_images, train_labels, test_images, test_labels = create_part_of_all_dataset(train_images_path, train_labels_path, test_images_path, test_labels_path, percentage/100)
         prototype_accuracy = prototype_categorized(train_images, train_labels, test_images, test_labels)
         prototype_accuracies.append(prototype_accuracy)
-        examples_accuracy = examples_categorize(train_images, train_labels, test_images, test_labels) #warning: takes a long time to run
-        examples_accuracies.append(examples_accuracy)
+        #examples_accuracy = examples_categorize(train_images, train_labels, test_images, test_labels) #warning: takes a long time to run
+        #examples_accuracies.append(examples_accuracy)
+        print('finished', percentage, '%')
 
-    plt.plot(range(1, 100), prototype_accuracies, label='Prototype-based categorization')
-    plt.plot(range(1, 100), examples_accuracies, label='Examples-based categorization') 
+    plt.plot(range(1, 101), prototype_accuracies, label='Prototype-based categorization')
+    #plt.plot(range(1, 101), examples_accuracies, label='Examples-based categorization') 
     plt.title('Accuracy of categorization of test images')
     plt.xlabel('Percentage of training data used')
     plt.ylabel('Accuracy (%)')
     plt.legend()
+    plt.savefig('Accuracy of prototype and examples-based categorization.png')
     plt.show()
     plt.close()
 
