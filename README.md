@@ -1,7 +1,3 @@
-Sure! Below is a README file for your project.
-
----
-
 # Image Categorization Experiment
 
 This project explores two methods of image categorization: prototype-based and examples-based categorization. The dataset used is a subset of the MNIST dataset containing only images labeled as 0 or 1. The project evaluates the accuracy of both methods by varying the percentage of training data used.
