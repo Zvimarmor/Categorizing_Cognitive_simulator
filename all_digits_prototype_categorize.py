@@ -97,24 +97,33 @@ if __name__ == '__main__':
     test_images_path = 't10k-images.idx3-ubyte'
     test_labels_path = 't10k-labels.idx1-ubyte'
 
-    prototype_accuracies = []
-    examples_accuracies = []
-    for percentage in range(1, 101):
-        train_images, train_labels, test_images, test_labels = create_part_of_all_dataset(train_images_path, train_labels_path, test_images_path, test_labels_path, percentage/100)
-        prototype_accuracy = prototype_categorized(train_images, train_labels, test_images, test_labels, percentage)
-        prototype_accuracies.append(prototype_accuracy)
-        print('finished', percentage, '%')
+    # prototype_accuracies = []
+    # examples_accuracies = []
+    # for percentage in range(1, 101):
+    #     train_images, train_labels, test_images, test_labels = create_part_of_all_dataset(train_images_path, train_labels_path, test_images_path, test_labels_path, percentage/100)
+    #     prototype_accuracy = prototype_categorized(train_images, train_labels, test_images, test_labels, percentage)
+    #     prototype_accuracies.append(prototype_accuracy)
+    #     print('finished', percentage, '%')
 
-    print("final accuracy of prototype categorization: ", prototype_accuracies[-1] * 100, '%')
+    # print("final accuracy of prototype categorization: ", prototype_accuracies[-1] * 100, '%')
 
-    plt.plot(range(1, 101), prototype_accuracies)
-    plt.title('Accuracy of categorization of test images on numbers 0-9')
-    plt.xlabel('Percentage of training data used')
-    plt.ylabel('Accuracy (%)')
-    plt.legend()
-    plt.savefig('Accuracy of prototype and examples-based categorization.png')
-    plt.show()
-    plt.close()
+    # plt.plot(range(1, 101), prototype_accuracies)
+    # plt.title('Accuracy of categorization of test images on numbers 0-9')
+    # plt.xlabel('Percentage of training data used')
+    # plt.ylabel('Accuracy (%)')
+    # plt.legend()
+    # plt.savefig('Accuracy of prototype and examples-based categorization.png')
+    # plt.show()
+    # plt.close()
+
+    #print the first 10 images
+    train_images, train_labels, test_images, test_labels = create_dataset(train_images_path, train_labels_path, test_images_path, test_labels_path)
+    for i in range(10):
+        plt.imshow(train_images[i], cmap='gray')
+        plt.title('label: ' + str(train_labels[i]))
+        plt.show()
+        plt.close()
+        
 
     
     
