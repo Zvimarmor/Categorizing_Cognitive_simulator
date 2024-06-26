@@ -125,12 +125,12 @@ if __name__ == '__main__':
         train_images, train_labels, test_images, test_labels = create_part_of_all_dataset(train_images_path, train_labels_path, test_images_path, test_labels_path, percentage/100)
         prototype_accuracy = prototype_categorized(train_images, train_labels, test_images, test_labels)
         prototype_accuracies.append(prototype_accuracy)
-        #examples_accuracy = examples_categorize(train_images, train_labels, test_images, test_labels) #warning: takes a long time to run
-        #examples_accuracies.append(examples_accuracy)
+        examples_accuracy = examples_categorize(train_images, train_labels, test_images, test_labels) #warning: takes a long time to run
+        examples_accuracies.append(examples_accuracy)
         print('finished', percentage, '%')
 
     plt.plot(range(1, 101), prototype_accuracies, label='Prototype-based categorization')
-    #plt.plot(range(1, 101), examples_accuracies, label='Examples-based categorization') 
+    plt.plot(range(1, 101), examples_accuracies, label='Examples-based categorization') 
     plt.title('Accuracy of categorization of test images')
     plt.xlabel('Percentage of training data used')
     plt.ylabel('Accuracy (%)')
