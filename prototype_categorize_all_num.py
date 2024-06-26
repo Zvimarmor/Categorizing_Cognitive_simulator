@@ -32,12 +32,6 @@ def create_part_of_all_dataset(train_images_path, train_labels, test_images, tes
     test_images = read_idx(test_images_path)
     test_labels = read_idx(test_labels_path)
 
-    #leave only images with label 0 or 1
-    train_images = train_images[train_labels <= 1]
-    train_labels = train_labels[train_labels <= 1]
-    test_images = test_images[test_labels <= 1]
-    test_labels = test_labels[test_labels <= 1]
-
     #take only a percentage of the train data and labels randomly
     if percentage < 1:
         train_images = train_images[:int(len(train_images)*percentage)]
@@ -55,7 +49,7 @@ def show_prototype(prototype, num):
     plt.close()
 
 
-def prototype_categorized(train_images, train_labels, test_images, test_labels):
+def prototype_categorized(train_images, train_labels, test_images, test_labels, percentage):
     '''
     This function calculates the accuracy of the prototype-based categorization
     of the test images.
@@ -78,8 +72,9 @@ def prototype_categorized(train_images, train_labels, test_images, test_labels):
     prototype_9 = np.mean(train_images[train_labels == 9], axis=0)
     prototipes = [prototype_0, prototype_1, prototype_2, prototype_3, prototype_4, prototype_5, prototype_6, prototype_7, prototype_8, prototype_9]
     
-    for i in prototipes:
-        show_prototype(i, prototipes.index(i))
+    if percentage == 100: 
+        for prototype in range(len(prototipes)):
+            show_prototype(prototipes[prototype], prototype)
 
     # Calculate the distance between the prototypes and the test images
     images_score = []
@@ -106,13 +101,12 @@ if __name__ == '__main__':
     examples_accuracies = []
     for percentage in range(1, 101):
         train_images, train_labels, test_images, test_labels = create_part_of_all_dataset(train_images_path, train_labels_path, test_images_path, test_labels_path, percentage/100)
-        prototype_accuracy = prototype_categorized(train_images, train_labels, test_images, test_labels)
+        prototype_accuracy = prototype_categorized(train_images, train_labels, test_images, test_labels, percentage)
         prototype_accuracies.append(prototype_accuracy)
         print('finished', percentage, '%')
 
-    plt.plot(range(1, 101), prototype_accuracies, label='Prototype-based categorization')
-    plt.plot(range(1, 101), examples_accuracies, label='Examples-based categorization') 
-    plt.title('Accuracy of categorization of test images')
+    plt.plot(range(1, 101), prototype_accuracies)
+    plt.title('Accuracy of categorization of test images on numbers 0-9')
     plt.xlabel('Percentage of training data used')
     plt.ylabel('Accuracy (%)')
     plt.legend()

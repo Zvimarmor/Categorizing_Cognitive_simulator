@@ -51,6 +51,15 @@ def create_part_of_all_dataset(train_images_path, train_labels, test_images, tes
 
     return train_images, train_labels, test_images, test_labels
 
+def show_prototype(prototype, num):
+    '''
+    This function displays the prototype image.
+    '''
+    plt.imshow(prototype, cmap='gray')
+    plt.title('prototype ' +str(num) + 'from '+ str(len(train_images[train_labels == 0]))+ ' images')
+    plt.show()
+    plt.close()
+
 def prototype_categorized(train_images, train_labels, test_images, test_labels):
     '''
     This function calculates the accuracy of the prototype-based categorization
@@ -66,15 +75,8 @@ def prototype_categorized(train_images, train_labels, test_images, test_labels):
     prototype_1 = np.mean(train_images[train_labels == 1], axis=0)
 
     #show the prototypes 
-    # plt.imshow(prototype_0, cmap='gray')
-    # plt.title('prototype 0 from '+ str(len(train_images[train_labels == 0]))+ ' images')
-    # plt.show()
-    # plt.close()
-
-    # plt.imshow(prototype_1, cmap='gray')
-    # plt.title('prototype 1 from '+ str(len(train_images[train_labels == 0]))+ ' images')
-    # plt.show()
-    # plt.close()
+    # show_prototype(prototype_0, 0)
+    # show_prototype(prototype_1, 1)
 
     # Calculate the distance between the prototypes and the test images
     images_score = []
